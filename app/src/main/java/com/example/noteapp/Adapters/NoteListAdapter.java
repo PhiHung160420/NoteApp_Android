@@ -1,5 +1,6 @@
 package com.example.noteapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +95,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             return listNotes.size();
         }
         return 0;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterList(List<Notes> filteredList) {
+        this.listNotes = filteredList;
+        notifyDataSetChanged();
     }
 }
 

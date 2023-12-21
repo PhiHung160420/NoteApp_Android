@@ -27,6 +27,18 @@ public class NotesTakerActivity extends AppCompatActivity {
         edtNote = findViewById(R.id.edt_note);
         edtTitle = findViewById(R.id.edt_title);
 
+        boolean isOldNote = false;
+        try {
+            note = new Notes();
+            note = (Notes) getIntent().getSerializableExtra("old_note");
+            edtTitle.setText(note.getTitle());
+            edtNote.setText(note.getNotes());
+            isOldNote = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        boolean finalIsOldNote = isOldNote;
         imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,7 +50,10 @@ public class NotesTakerActivity extends AppCompatActivity {
                 }
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 Date date = new Date();
-                note = new Notes();
+
+                if (!finalIsOldNote) {
+                    note = new Notes();
+                }
                 note.setTitle(title);
                 note.setNotes(description);
                 note.setDate(dateFormatter.format(date));
